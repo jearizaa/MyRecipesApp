@@ -6,7 +6,8 @@ router.use(express.json())
 
 router.get('/', (req, res) => {
     Diet.findAll()
-        .then(diets => res.json(diets))  
+        .then(diets => res.json(diets)) 
+        .catch(err => res.send('Error')) 
 })
 
 module.exports = router;
