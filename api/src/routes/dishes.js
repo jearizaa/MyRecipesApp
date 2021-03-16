@@ -1,12 +1,12 @@
 const express = require('express')
 const router = express.Router()
-const { Diet } = require('../db.js');
+const { Dish } = require('../db.js');
 
 router.use(express.json())
 
 router.get('/', (req, res) => {
-    Diet.findAll()
-        .then(diets => res.json(diets)) 
+    Dish.findAll()
+        .then(dishes => res.json(dishes)) 
         .catch(err => res.send('Error')) 
 })
 

@@ -28,7 +28,7 @@ conn.sync({ force: false }).then(() => {
 
   let diets = ['gluten free', 'ketogenic', 'vegetarian', 
             'lacto vegetarian', 'ovo vegetarian', 'vegan',
-            'pescetarian', 'paleo', 'primal', 'whole 30',]
+            'pescatarian', 'paleolithic', 'primal', 'whole 30',]
   //console.log(diets[0])
   diets = diets.map(diet => {
     return Diet.create({

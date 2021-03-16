@@ -9,6 +9,7 @@ module.exports = (sequelize) => {
     },
     image: {
       type: DataTypes.STRING,
+      defaultValue: 'https://webstockreview.net/images/clipart-lunch-elegant-luncheon-10.png',
     },
     name: {
       type: DataTypes.STRING,
