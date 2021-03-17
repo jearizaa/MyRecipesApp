@@ -60,7 +60,7 @@ router.get('/', (req, res) => {
                     // summary: result.species,
                     score: result.spoonacularScore,
                     healthyScore: result.healthScore,
-                    steps: result.sourceUrl,
+                    steps: JSON.stringify(result.analyzedInstructions),
                 })
             })
             //console.log(results[0])

@@ -22,12 +22,20 @@ module.exports = (sequelize) => {
     },
     score: {
       type: DataTypes.INTEGER,
+      defaultValue: 50,
     },
     healthyScore: {
       type: DataTypes.INTEGER,
+      defaultValue: 50,
     },
     steps: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
+      defaultValue: '[]',
+      get: function(){
+        let list = JSON.parse(this.getDataValue('steps'))
+        if(list.length > 0) return list[0].steps
+        return []
+      }
     },
   });
 };

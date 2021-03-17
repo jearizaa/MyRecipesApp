@@ -1,18 +1,30 @@
-//import {Link} from 'react-router-dom'
-import Nav from './Nav.js'
+import React from 'react'
 
-function Recipe() {
-  return (
-    <div className="Recipe">
-        <Nav/>
-        <h1>Formulario Recetas</h1>        
-        <form method='post' action='http://localhost:3001/recipe'>
-            <input name='name' placeholder='Nombre' required />
-            <input type='text' name='summary' placeholder='Resumen' required />
-            <input type='submit' value='Crear' />
-        </form>
-    </div>
-  );
-}
-
-export default Recipe;
+function Recipe({recipe}) {
+    return (
+      <div className="Recipe">
+          <h1>{recipe.name}</h1> 
+          <img src={recipe.image} alt={recipe.image}/> 
+          <div className='Diets'>
+            {
+                recipe.diets.map((diet, index) => {
+                    return (
+                        <div key={`RecipeDiet${index}`}>{diet.name}</div>
+                    )
+                })
+            }
+          </div> 
+          <div className='Dishes'>
+            {
+                recipe.dishes.map((dish, index) => {
+                    return (
+                        <div key={`RecipeDish${index}`}>{dish.name}</div>
+                    )
+                })
+            }
+          </div>
+      </div>
+    );
+  }
+  
+  export default Recipe;

@@ -8,7 +8,8 @@ import {BrowserRouter} from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 import { updateRecipes } from './reducers'
 
-store.dispatch(updateRecipes)
+
+store.dispatch(updateRecipes(''))
 
 ReactDOM.render(
   <React.StrictMode>
