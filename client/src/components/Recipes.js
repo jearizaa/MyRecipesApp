@@ -3,12 +3,12 @@ import Nav from './Nav.js'
 import { connect } from 'react-redux'
 import { useState } from 'react'
 import Recipe from './Recipe'
-import { increment, decrement, filter, refresh} from '../actions'
+import { increment, decrement, filter, refresh, sort} from '../actions'
 import { updateRecipes } from '../reducers'
 import React from 'react'
 
 
-function Recipes({page, recipes, diets, dishes, incrementPage, decrementPage, searchRecipes, filterRecipes, restoreRecipes}) {  
+function Recipes({page, recipes, diets, dishes, incrementPage, decrementPage, searchRecipes, filterRecipes, restoreRecipes, sortRecipes}) {  
     const [filter, setFilter] = useState('')
     const [order, setOrder] = useState({
         types: [],
@@ -36,9 +36,11 @@ function Recipes({page, recipes, diets, dishes, incrementPage, decrementPage, se
     }
 
     function handleFilter(e){
-        e.preventDefault()
+        //e.preventDefault()
         restoreRecipes()
         filterRecipes(order)
+        sortRecipes(order)
+
     }
 
     function handleCheckBox(e){
@@ -69,6 +71,7 @@ function Recipes({page, recipes, diets, dishes, incrementPage, decrementPage, se
             })
         }
     }
+
 
     if(recipes.length > 0){
         return (
@@ -103,7 +106,14 @@ function Recipes({page, recipes, diets, dishes, incrementPage, decrementPage, se
                         dishes.map(dish => {
                             return (
                                 <React.Fragment key={dish.name}>                     
-                                    <input type='checkbox'/>
+                                    <input 
+                                    name={dish.name}
+                                    type='checkbox'
+                                    checked={!!order.types[order.types.findIndex(type => {
+                                        return type === dish.name
+                                    })]}    
+                                    onChange={handleCheckBox}
+                                    />
                                     <label>{dish.name}</label>
                                 </React.Fragment>
                             )
@@ -126,14 +136,15 @@ function Recipes({page, recipes, diets, dishes, incrementPage, decrementPage, se
                         type='checkbox'
                         checked={order['ascScr']}
                         onChange={handleCheckBox}/>
-                    <label>{'Mayor a menor puntaje'}</label>
+                    <label>{'Puntaje ascendente'}</label>
                     <input  
                         name={'desScr'}
                         type='checkbox'
                         checked={order['desScr']}
                         onChange={handleCheckBox}/>
-                    <label>{'Menor a mayor puntaje'}</label>
+                    <label>{'Puntaje descendente'}</label>
                     <input type='button' onClick={handleFilter} value='Filtrar'/>
+                    <input type='button' onClick={restoreRecipes} value='Restaurar'/>
                 </form>
                 <div className="Recipes">                
                     <h1>{`Recetas ${page}`}</h1>
@@ -151,7 +162,11 @@ function Recipes({page, recipes, diets, dishes, incrementPage, decrementPage, se
         );
     }else{
         return (
-            <></>
+            <>
+                <Nav/>
+                <h1>No hay recetas con el criterio especificado.</h1>
+                <button onClick={restoreRecipes}>Volver a buscar.</button>
+            </>
         )
     }
 }
@@ -171,7 +186,8 @@ function mapDispatchToProps(dispatch){
         decrementPage: () => dispatch(decrement()),
         searchRecipes: (name) => dispatch(updateRecipes(name)),
         filterRecipes: (payload) => dispatch(filter(payload)),
-        restoreRecipes: () => dispatch(refresh())
+        restoreRecipes: () => dispatch(refresh()),
+        sortRecipes: (payload) => dispatch(sort(payload)),
     }
 }
 

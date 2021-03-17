@@ -32,17 +32,18 @@ const rootReducer = (state = initialState, action) => {
       case FILTER_RECIPES: 
         let {types} = action.payload
         if(types.length > 0) {
-          let filteredRecipes = state.recipes.filter(recipe => {
-            let dietsAndDishes = [...recipe.diets, ...recipe.dishes]
-            for(let i = 0; i < types.length; i++){
-              let index = dietsAndDishes.findIndex(el => {
-                return el.name === types[i]
-              })
-              if(index >= 0) return true
-            }
-            return false
+            let filteredRecipes = state.recipes.filter(recipe => {
+              let strict = 0
+              let dietsAndDishes = [...recipe.diets, ...recipe.dishes]
+              for(let i = 0; i < types.length; i++){
+                let index = dietsAndDishes.findIndex(el => {
+                  return el.name === types[i]
+                })
+                if(index >= 0) strict++
+                if(strict === types.length) return true
+              }
+              return false
           })
-          console.log(filteredRecipes)
           return {
             ...state,
             page: 1,
@@ -51,6 +52,42 @@ const rootReducer = (state = initialState, action) => {
         }
         return state
       case SORT_RECIPES:
+        let {ascAlf, desAlf, ascScr, desScr} = action.payload
+        if(ascAlf || desAlf || ascScr || desScr){
+          let sorted = []
+          if(ascAlf){
+            sorted = [...state.recipes.sort((a, b) => {
+              if(a.name < b.name) return -1
+              if(a.name > b.name) return 1
+              return 0
+            })]
+          }
+          if(desAlf){
+            sorted = [...state.recipes.sort((a, b) => {
+              if(a.name > b.name) return -1
+              if(a.name < b.name) return 1
+              return 0
+            })]
+          }
+          if(ascScr){
+            sorted = [...state.recipes.sort((a, b) => {
+              if(a.score < b.score) return -1
+              if(a.score > b.score) return 1
+              return 0
+            })]
+          }
+          if(desScr){
+            sorted = [...state.recipes.sort((a, b) => {
+              if(a.score > b.score) return -1
+              if(a.score < b.score) return 1
+              return 0
+            })]
+          }
+          return {
+            ...state,
+            recipes: sorted
+          }
+        }
         return state      
       case UPDATE_RECIPES:
         let {recipes, diets, dishes} = action.payload

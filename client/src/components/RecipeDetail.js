@@ -39,9 +39,12 @@ function RecipeDetail({recipes, match}) {
           </div>
           <ol className='Steps'>
             {recipe.steps.map((step, index) => {
-              return (
-                <li key={`RecipeStep${index}`}>{step.step}</li>
-              )
+              if(step.step !== ''){
+                return (
+                  <li key={`RecipeStep${index}`}>{step.step}</li>
+                )
+              } 
+              return <></>             
             })}
           </ol>          
         </div>
