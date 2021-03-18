@@ -73,6 +73,9 @@ function Recipes({page, recipes, diets, dishes, incrementPage, decrementPage, se
         }
     }
 
+    function handleError(){
+        recipes.length > 0 ? restoreRecipes():searchRecipes('')
+    }
 
     if(recipes.length > 0){
         return (
@@ -197,7 +200,7 @@ function Recipes({page, recipes, diets, dishes, incrementPage, decrementPage, se
             <>
                 <Nav/>
                 <h1 className='errorPage'>No hay recetas con el criterio especificado.</h1>
-                <button onClick={restoreRecipes}>Volver a buscar.</button>
+                <button onClick={handleError}>Volver a buscar.</button>
             </>
         )
     }

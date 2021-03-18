@@ -37,7 +37,7 @@ conn.sync({ force: false }).then(() => {
   })
   //console.log(diets[0])
   let dishes = ['main course', 'bread', 'marinade',
-              'side dish', 'brakfast', 'fingerfood', 
+              'side dish', 'breakfast', 'fingerfood', 
               'dessert', 'soup', 'snack', 'appetizer',
               'beverage', 'drink', 'salad', 'sauce',]
 

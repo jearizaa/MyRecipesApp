@@ -4,7 +4,7 @@ import './Home.css';
 
 export function Home() {
   return (
-    <div class='container'>
+    <div className='container'>
         <Link to='/recipes'>
           <button className='homeButton'>Henry Food</button>
         </Link>       
