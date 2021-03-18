@@ -1,3 +1,49 @@
 .Nav{
     background-color: #3b1f01;
+    flex-direction: row;
+    width: 100%;
+    height: 50px;
+}
+
+.toHome{
+    display: inline-block;
+    width: 20%;
+    height: 100%;
+    text-align: center;
+}
+
+.toHome:hover{
+    background-color: #683600;
+}
+
+.toRecipes{
+    display: inline-block;
+    width: 60%;
+    height: 100%;
+    background-color: #351c01;
+    text-align: center;
+}
+
+.toRecipes:hover{
+    background-color: #683600;
+}
+
+.toAdd{
+    display: inline-block;
+    width: 20%;
+    height: 100%;
+    text-align: center;
+}
+
+.toAdd:hover{
+    background-color: #683600;
+}
+
+.navText{
+    height: 100%;
+    color: white;
+    margin:0;
+    padding:0;
+    vertical-align:middle;
+    display:table-cell;
 }

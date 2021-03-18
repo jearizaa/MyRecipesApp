@@ -2,16 +2,68 @@
     background-color: #5c3000a2;
     color:#351b00;
     border-radius: 5%;
+    height: 92%;
+    width: 92%;
+    padding: 2%;
+    margin: 2%;
+}
+
+.header{
+    height: 60%;
+    text-align: center;
 }
 
 h1{
-    font-size: x-large;
+    font-size:100%;
+    margin: 0 0;
+    height: 25%;
 }
 
 .recipeImage{
-    width: 50%;
+    height: 75%;
     border-radius: 5%;
+}
 
+.types{
+    height: 40%;
+}
+
+.diets{
+    background-color: #351b0086;
+    border: solid;
+    border-width: 1%;
+    border-radius: 2%;
+    margin: 1% 1%;
+    padding: 1% 1%;
+    display: grid;
+    height: 38%;
+    width: 94%;
+    grid-template-columns: 33.3% 33.3% 33.3%;
+    grid-template-rows: 33.3% 33.3% 33.3%;
+}
+
+.diet{
+    text-align: center;
+    font-size: small;
+}
+
+.dishes{
+    background-color: #351b0086;
+    border: solid;
+    border-width: 1%;
+    border-radius: 2%;
+    margin: 1% 1%;
+    padding: 1% 1%;
+    display: grid;
+    height: 38%;
+    width: 94%;
+    grid-template-columns: 33.3% 33.3% 33.3%;
+    grid-template-rows: 33.3% 33.3% 33.3%;
+}
+
+.dish{
+    text-align: center;
+    font-size: small;
 }
 
 .recipe:hover{

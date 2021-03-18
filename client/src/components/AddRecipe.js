@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import Nav from './Nav.js'
+import './AddRecipe.css'
 
 function validate(input){
   let errors = {}
@@ -126,95 +127,102 @@ function AddRecipe({diets, dishes}) {
   return (
     <>
       <Nav/>
-      <div className="AddRecipe">
+      <div className='page'>
+        <div className="addRecipe">
           <h1>Formulario Recetas</h1>        
-          <form method='post' action='http://localhost:3001/recipe'>
-              <label htmlFor='name'>Nombre: </label>
-              <input 
-                name='name' 
-                placeholder='Nombre' 
-                onChange={handleForm}
-                required />
-              <p className='danger'>{form.errors.name}</p>
-              <label htmlFor='summary'>Resumen: </label>
-              <textarea 
-                type='text' 
-                name='summary' 
-                placeholder='Resumen' 
-                onChange={handleForm}
-                required />
-              <p className='danger'>{form.errors.summary}</p>
-              <label htmlFor='score'>Puntuacion: </label>
-              <input 
-                type='number' 
-                name='score' 
-                value={form.score}
-                placeholder='Puntuacion' 
-                onChange={handleForm}/>
-              <label htmlFor='healthyScore'>Saludable: </label>
-              <input 
-                type='number' 
-                name='healthyScore' 
-                value={form.healthyScore}
-                placeholder='Saludable' 
-                onChange={handleForm}/> 
-              <div className='dietChecks'>
-              {
-                  diets.map(diet => {
-                      return (
-                          <React.Fragment key={diet.name}> 
-                          <input 
-                          name={`t${diet.name}`}
-                          type='checkbox'
-                          checked={!!form.diets[form.diets.findIndex(el => {
-                              return el === diet.name})]}
-                          onChange={handleCheckBox}
-                          />
-                          <label>{diet.name}</label>
-                          </React.Fragment>
-                      )
+          <form className='recipeForm' method='post' action='http://localhost:3001/recipe'>
+              <div className='contentF'>
+                <label htmlFor='name'>Nombre: </label>
+                <input 
+                  name='name' 
+                  placeholder='Nombre' 
+                  onChange={handleForm}
+                  required />
+                <p className='danger'>{form.errors.name}</p>
+                <label htmlFor='summary'>Resumen: </label>
+                <textarea 
+                  type='text' 
+                  name='summary' 
+                  placeholder='Resumen' 
+                  onChange={handleForm}
+                  required />
+                <p className='danger'>{form.errors.summary}</p>
+                <label htmlFor='score'>Puntuacion: </label>
+                <input 
+                  type='number' 
+                  name='score' 
+                  value={form.score}
+                  placeholder='Puntuacion' 
+                  onChange={handleForm}/>
+                <label htmlFor='healthyScore'>Saludable: </label>
+                <input 
+                  type='number' 
+                  name='healthyScore' 
+                  value={form.healthyScore}
+                  placeholder='Saludable' 
+                  onChange={handleForm}/>                       
+                {
+                  form.steps.map((el, i) => {
+                    return(
+                      <div key={`step${i}`}>
+                      <label htmlFor={`step${i}`}>{`Paso ${i+1}: `}</label>
+                      <textarea
+                        type='textarea'
+                        name={`step${i}`}
+                        id={i}
+                        data-name='steps'
+                        value={el}
+                        onChange={handleStepsChange}
+                      />
+                      <input type='button' value='X' id={i} onClick={removeStep}/>
+                    </div>                  
+                    )                  
                   })
-              }</div>
-              <div className='dishChecks'>
-              {
-                  dishes.map(dish => {
-                      return (
-                          <React.Fragment key={dish.name}>                     
-                              <input 
-                              name={`h${dish.name}`}
-                              type='checkbox'
-                              checked={!!form.dishes[form.dishes.findIndex(el => {
-                                  return el === dish.name
-                              })]}    
-                              onChange={handleCheckBox}
-                              />
-                              <label>{dish.name}</label>
-                          </React.Fragment>
-                      )
-                  })
-              }</div>            
-              {
-                form.steps.map((el, i) => {
-                  return(
-                    <div key={`step${i}`}>
-                    <label htmlFor={`step${i}`}>{`Paso ${i+1}: `}</label>
-                    <textarea
-                      type='textarea'
-                      name={`step${i}`}
-                      id={i}
-                      data-name='steps'
-                      value={el}
-                      onChange={handleStepsChange}
-                    />
-                    <input type='button' value='X' id={i} onClick={removeStep}/>
-                  </div>                  
-                  )                  
-                })
-              }            
-              
-              <input type='button' value='+' onClick={addStep}/>
-              <input disabled={form.errors.disable} type='submit' value='Crear'/>
+                }
+                <input type='button' value='+' onClick={addStep}/>
+                <input disabled={form.errors.disable} type='submit' value='Crear'/>
+              </div>
+              <div className='addFilter'>
+              <div className='addChecks'>
+                <div className='addDietChecks'>
+                {
+                    diets.map(diet => {
+                        return (
+                            <div key={diet.name}> 
+                            <input 
+                            name={`t${diet.name}`}
+                            type='checkbox'
+                            checked={!!form.diets[form.diets.findIndex(el => {
+                                return el === diet.name})]}
+                            onChange={handleCheckBox}
+                            />
+                            <label>{diet.name}</label>
+                            </div>
+                        )
+                    })
+                }</div>
+                <div className='addDishChecks'>
+                {
+                    dishes.map(dish => {
+                        return (
+                            <div key={dish.name}>                     
+                                <input 
+                                name={`h${dish.name}`}
+                                type='checkbox'
+                                checked={!!form.dishes[form.dishes.findIndex(el => {
+                                    return el === dish.name
+                                })]}    
+                                onChange={handleCheckBox}
+                                />
+                                <label>{dish.name}</label>
+                            </div>
+                        )
+                    })
+                }</div>  
+                </div>
+              </div>  
           </form>
+      </div>
       </div>
     </>
   );

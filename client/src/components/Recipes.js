@@ -77,33 +77,37 @@ function Recipes({page, recipes, diets, dishes, incrementPage, decrementPage, se
     if(recipes.length > 0){
         return (
             <>
-                <Nav/> 
-                <h1>{`Recetas pagina ${page}`}</h1>
-                <form className='search' onSubmit={handleSearch}>
-                    <input type='text' name='name' onChange={handleInputChange}/>
-                    <input type='submit' value='Buscar'/>
-                </form>     
+                <Nav page={page}/> 
+                <div className='recipesBar'>
+                    {/* <div className='titleText'>{`Recetas pagina ${page}`}</div> */}
+                    <form className='search' onSubmit={handleSearch}>
+                        <input type='text' name='name' onChange={handleInputChange}/>
+                        <input type='submit' value='Buscar'/>
+                    </form>     
+                </div>
                 <div className='recipesScreen'>  
                     <div className='flechas' onClick={handlePrev}>
-                        <h1 onClick={handlePrev}>{'<'}</h1>
+                        <div className='divFlechas'>
+                            <h1 className='f'>{'<'}</h1>  
+                        </div> 
                     </div>  
                     <div className="recipes"> 
                         <div className='matrix'>              
                         {
                             recipes.map((recipe, index) => {
-                                return (
-                                    <div className={`column${index%9}`}> 
+                                return ( 
                                     <Link to={`/details/${recipe.id}`} key={recipe.id}>
                                         <Recipe recipe={recipe}/>
                                     </Link> 
-                                    </div>
                                 )                            
                             }).slice((page-1)*9, (page-1)*9+9)
                         } 
                         </div>    
                     </div>
                     <div className='flechas' onClick={handleNext}>
-                        <h1 onClick={handleNext}>{'>'}</h1>  
+                        <div className='divFlechas'>
+                            <h1 className='f'>{'>'}</h1>  
+                        </div>                        
                     </div>
                     <form className='filter'>
                         <div className='order'>
@@ -112,6 +116,7 @@ function Recipes({page, recipes, diets, dishes, incrementPage, decrementPage, se
                                 <input type='button' onClick={restoreRecipes} value='Restaurar'/>
                             </div>
                             <div className='orderChecks'>
+                                <div>
                                 <input  
                                     name={'ascAlf'}
                                     type='checkbox'
@@ -124,18 +129,25 @@ function Recipes({page, recipes, diets, dishes, incrementPage, decrementPage, se
                                     checked={order['desAlf']}
                                     onChange={handleCheckBox}/>
                                 <label>{'Z-A'}</label>
+                                </div>
+                                <div>
+                                <div>
                                 <input  
                                     name={'ascScr'}
                                     type='checkbox'
                                     checked={order['ascScr']}
                                     onChange={handleCheckBox}/>
                                 <label>{'Puntaje ascendente'}</label>
+                                </div>
+                                <div>
                                 <input  
                                     name={'desScr'}
                                     type='checkbox'
                                     checked={order['desScr']}
                                     onChange={handleCheckBox}/>
                                 <label>{'Puntaje descendente'}</label>
+                                </div>
+                                </div>
                             </div>
                         </div>
                         <div className='checks'>
@@ -143,16 +155,16 @@ function Recipes({page, recipes, diets, dishes, incrementPage, decrementPage, se
                             {
                             diets.map(diet => {
                                 return (
-                                    <React.Fragment key={diet.name}> 
-                                    <input 
-                                    name={diet.name}
-                                    type='checkbox'
-                                    checked={!!order.types[order.types.findIndex(type => {
-                                        return type === diet.name})]}
-                                    onChange={handleCheckBox}
-                                    />
-                                    <label>{diet.name}</label>
-                                    </React.Fragment>
+                                    <div className='check' key={diet.name}> 
+                                        <input 
+                                        name={diet.name}
+                                        type='checkbox'
+                                        checked={!!order.types[order.types.findIndex(type => {
+                                            return type === diet.name})]}
+                                        onChange={handleCheckBox}
+                                        />
+                                        <label>{diet.name}</label>
+                                    </div>
                                 )
                             })
                             }
@@ -161,7 +173,7 @@ function Recipes({page, recipes, diets, dishes, incrementPage, decrementPage, se
                             {
                             dishes.map(dish => {
                                 return (
-                                    <React.Fragment key={dish.name}>                     
+                                    <div className='check' key={dish.name}>                     
                                         <input 
                                         name={dish.name}
                                         type='checkbox'
@@ -171,7 +183,7 @@ function Recipes({page, recipes, diets, dishes, incrementPage, decrementPage, se
                                         onChange={handleCheckBox}
                                         />
                                         <label>{dish.name}</label>
-                                    </React.Fragment>
+                                    </div>
                                 )
                             })
                             }</div>
@@ -184,7 +196,7 @@ function Recipes({page, recipes, diets, dishes, incrementPage, decrementPage, se
         return (
             <>
                 <Nav/>
-                <h1>No hay recetas con el criterio especificado.</h1>
+                <h1 className='errorPage'>No hay recetas con el criterio especificado.</h1>
                 <button onClick={restoreRecipes}>Volver a buscar.</button>
             </>
         )

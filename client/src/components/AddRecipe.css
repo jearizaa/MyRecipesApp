@@ -1,0 +1,48 @@
+.page{
+    background-color: white;
+    height: 100%;
+    width: 70%;
+    margin: 50px 15%;
+    border-radius: 10%;
+}
+.addRecipe{  
+    height: 90%;  
+    width: 90%;
+    margin: 50px 5%;
+    padding: 5% 0;
+    flex-direction: row;
+}
+
+.addRecipeForm{
+    flex-direction: row;
+}
+
+.contentF{
+    display: inline-block;
+    width: 70%; 
+    vertical-align: top;   
+}
+
+.addFilter{
+    flex-direction: row;
+    display: inline-block;
+    width: 30%;
+}
+
+.addChecks{
+    flex-direction: row;
+}
+
+.addDietChecks{
+    display: inline-block;
+    width: 50%;
+    height: 100%;
+    vertical-align: top;
+}
+
+.addDishChecks{
+    display: inline-block;
+    width: 50%;
+    height: 100%;
+    vertical-align: top;
+}

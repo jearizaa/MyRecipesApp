@@ -1,0 +1,33 @@
+.page{
+    background-color: white;
+    height: 100%;
+    width: 70%;
+    margin: 50px 15%;
+    border-radius: 10%;
+}
+.recipeDetail{  
+    height: 90%;  
+    width: 90%;
+    margin: 50px 5%;
+    padding: 10% 0;
+}
+
+.recipeContent{
+    flex-direction: row;
+}
+
+.recipePic{
+    display: inline-block;
+    width: 40%;
+    height: 100%;
+}
+
+.pic{
+    width: 100%;
+}
+
+.recipeText{
+    display: inline-block;
+    width: 56%;
+    padding: 2%;
+}
