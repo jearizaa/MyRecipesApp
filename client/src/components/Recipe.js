@@ -1,11 +1,12 @@
 import React from 'react'
+import './Recipe.css'
 
 function Recipe({recipe}) {
     return (
-      <div className="Recipe">
+      <div className="recipe">
           <h1>{recipe.name}</h1> 
-          <img src={recipe.image} alt={recipe.image}/> 
-          <div className='Diets'>
+          <img className='recipeImage' src={recipe.image} alt={recipe.image}/> 
+          <div className='diets'>
             {
                 recipe.diets.map((diet, index) => {
                     return (
@@ -14,7 +15,7 @@ function Recipe({recipe}) {
                 })
             }
           </div> 
-          <div className='Dishes'>
+          <div className='dishes'>
             {
                 recipe.dishes.map((dish, index) => {
                     return (

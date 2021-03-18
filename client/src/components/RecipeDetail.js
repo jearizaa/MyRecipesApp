@@ -3,9 +3,9 @@ import Nav from './Nav.js'
 import { connect } from 'react-redux'
 
 
-function RecipeDetail({recipes, match}) {  
-  let [recipe] = recipes.filter(recipe => {
-    return parseInt(recipe.id) === parseInt(match.params.id)
+function RecipeDetail({store, match}) {  
+  let [recipe] = store.filter((el) => {
+    return parseInt(el.id) === parseInt(match.params.id)
   })
 
   if(recipe){
@@ -63,7 +63,7 @@ function RecipeDetail({recipes, match}) {
 
 function mapStateToProps(state){
   return{
-    recipes: state.recipes
+    store: state.recipes,
   }
 }
 

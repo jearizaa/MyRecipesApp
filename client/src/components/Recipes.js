@@ -6,7 +6,7 @@ import Recipe from './Recipe'
 import { increment, decrement, filter, refresh, sort} from '../actions'
 import { updateRecipes } from '../reducers'
 import React from 'react'
-
+import './Recipes.css'
 
 function Recipes({page, recipes, diets, dishes, incrementPage, decrementPage, searchRecipes, filterRecipes, restoreRecipes, sortRecipes}) {  
     const [filter, setFilter] = useState('')
@@ -27,6 +27,7 @@ function Recipes({page, recipes, diets, dishes, incrementPage, decrementPage, se
     }
 
     function handleInputChange(e){
+        console.log(e.target.value)
         setFilter(e.target.value)
     }
 
@@ -36,7 +37,7 @@ function Recipes({page, recipes, diets, dishes, incrementPage, decrementPage, se
     }
 
     function handleFilter(e){
-        //e.preventDefault()
+        e.preventDefault()
         restoreRecipes()
         filterRecipes(order)
         sortRecipes(order)
@@ -76,88 +77,107 @@ function Recipes({page, recipes, diets, dishes, incrementPage, decrementPage, se
     if(recipes.length > 0){
         return (
             <>
-                <Nav/>
-                <button onClick={handlePrev}>Anterior</button>
-                <button onClick={handleNext}>Siguiente</button>
-                <form onSubmit={handleSearch}>
+                <Nav/> 
+                <h1>{`Recetas pagina ${page}`}</h1>
+                <form className='search' onSubmit={handleSearch}>
                     <input type='text' name='name' onChange={handleInputChange}/>
                     <input type='submit' value='Buscar'/>
-                </form>
-                <form>
-                    <div className='dietChecks'>
-                    {
-                        diets.map(diet => {
-                            return (
-                                <React.Fragment key={diet.name}> 
-                                <input 
-                                name={diet.name}
-                                type='checkbox'
-                                checked={!!order.types[order.types.findIndex(type => {
-                                    return type === diet.name})]}
-                                onChange={handleCheckBox}
-                                />
-                                <label>{diet.name}</label>
-                                </React.Fragment>
-                            )
-                        })
-                    }</div>
-                    <div className='dishChecks'>
-                    {
-                        dishes.map(dish => {
-                            return (
-                                <React.Fragment key={dish.name}>                     
+                </form>     
+                <div className='recipesScreen'>  
+                    <div className='flechas' onClick={handlePrev}>
+                        <h1 onClick={handlePrev}>{'<'}</h1>
+                    </div>  
+                    <div className="recipes"> 
+                        <div className='matrix'>              
+                        {
+                            recipes.map((recipe, index) => {
+                                return (
+                                    <div className={`column${index%9}`}> 
+                                    <Link to={`/details/${recipe.id}`} key={recipe.id}>
+                                        <Recipe recipe={recipe}/>
+                                    </Link> 
+                                    </div>
+                                )                            
+                            }).slice((page-1)*9, (page-1)*9+9)
+                        } 
+                        </div>    
+                    </div>
+                    <div className='flechas' onClick={handleNext}>
+                        <h1 onClick={handleNext}>{'>'}</h1>  
+                    </div>
+                    <form className='filter'>
+                        <div className='order'>
+                            <div className='buttonsFilter'>
+                                <input type='button' onClick={handleFilter} value='Filtrar'/>
+                                <input type='button' onClick={restoreRecipes} value='Restaurar'/>
+                            </div>
+                            <div className='orderChecks'>
+                                <input  
+                                    name={'ascAlf'}
+                                    type='checkbox'
+                                    checked={order['ascAlf']}
+                                    onChange={handleCheckBox}/>
+                                <label>{'A-Z'}</label>
+                                <input  
+                                    name={'desAlf'}
+                                    type='checkbox'
+                                    checked={order['desAlf']}
+                                    onChange={handleCheckBox}/>
+                                <label>{'Z-A'}</label>
+                                <input  
+                                    name={'ascScr'}
+                                    type='checkbox'
+                                    checked={order['ascScr']}
+                                    onChange={handleCheckBox}/>
+                                <label>{'Puntaje ascendente'}</label>
+                                <input  
+                                    name={'desScr'}
+                                    type='checkbox'
+                                    checked={order['desScr']}
+                                    onChange={handleCheckBox}/>
+                                <label>{'Puntaje descendente'}</label>
+                            </div>
+                        </div>
+                        <div className='checks'>
+                            <div className='dietChecks'>
+                            {
+                            diets.map(diet => {
+                                return (
+                                    <React.Fragment key={diet.name}> 
                                     <input 
-                                    name={dish.name}
+                                    name={diet.name}
                                     type='checkbox'
                                     checked={!!order.types[order.types.findIndex(type => {
-                                        return type === dish.name
-                                    })]}    
+                                        return type === diet.name})]}
                                     onChange={handleCheckBox}
                                     />
-                                    <label>{dish.name}</label>
-                                </React.Fragment>
-                            )
-                        })
-                    }</div>
-                    <input  
-                        name={'ascAlf'}
-                        type='checkbox'
-                        checked={order['ascAlf']}
-                        onChange={handleCheckBox}/>
-                    <label>{'A-Z'}</label>
-                    <input  
-                        name={'desAlf'}
-                        type='checkbox'
-                        checked={order['desAlf']}
-                        onChange={handleCheckBox}/>
-                    <label>{'Z-A'}</label>
-                    <input  
-                        name={'ascScr'}
-                        type='checkbox'
-                        checked={order['ascScr']}
-                        onChange={handleCheckBox}/>
-                    <label>{'Puntaje ascendente'}</label>
-                    <input  
-                        name={'desScr'}
-                        type='checkbox'
-                        checked={order['desScr']}
-                        onChange={handleCheckBox}/>
-                    <label>{'Puntaje descendente'}</label>
-                    <input type='button' onClick={handleFilter} value='Filtrar'/>
-                    <input type='button' onClick={restoreRecipes} value='Restaurar'/>
-                </form>
-                <div className="Recipes">                
-                    <h1>{`Recetas ${page}`}</h1>
-                    {
-                        recipes.map((recipe) => {
-                            return (
-                                <Link to={`/details/${recipe.id}`} key={recipe.id}>
-                                    <Recipe recipe={recipe}/>
-                                </Link> 
-                            )                            
-                        }).splice((page-1)*9, (page-1)*9+9)
-                    }              
-                </div>
+                                    <label>{diet.name}</label>
+                                    </React.Fragment>
+                                )
+                            })
+                            }
+                            </div>
+                            <div className='dishChecks'>
+                            {
+                            dishes.map(dish => {
+                                return (
+                                    <React.Fragment key={dish.name}>                     
+                                        <input 
+                                        name={dish.name}
+                                        type='checkbox'
+                                        checked={!!order.types[order.types.findIndex(type => {
+                                            return type === dish.name
+                                        })]}    
+                                        onChange={handleCheckBox}
+                                        />
+                                        <label>{dish.name}</label>
+                                    </React.Fragment>
+                                )
+                            })
+                            }</div>
+                        </div>
+                    </form>
+                </div>   
             </>
         );
     }else{

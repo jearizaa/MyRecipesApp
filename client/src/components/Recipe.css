@@ -1,0 +1,20 @@
+.recipe{
+    background-color: #5c3000a2;
+    color:#351b00;
+    border-radius: 5%;
+}
+
+h1{
+    font-size: x-large;
+}
+
+.recipeImage{
+    width: 50%;
+    border-radius: 5%;
+
+}
+
+.recipe:hover{
+    background-color: #5c3000e7;
+    color: white;
+}

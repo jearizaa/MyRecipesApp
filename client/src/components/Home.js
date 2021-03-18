@@ -1,12 +1,13 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
+import './Home.css';
 
 export function Home() {
   return (
-    <div>
+    <div class='container'>
         <Link to='/recipes'>
-            <button>Henry Food</button>
-        </Link>
+          <button className='homeButton'>Henry Food</button>
+        </Link>       
     </div>
   )
 };
